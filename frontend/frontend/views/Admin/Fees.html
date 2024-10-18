@@ -1,0 +1,137 @@
+<style>
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+
+
+    #formMessage {
+        text-align: center;
+        color: rgb(164, 24, 24);
+        font-size: larger;
+        font-weight: 800;
+    }
+</style>
+
+<section>
+    <div class="container">
+        <h1 class="heading"> Payment</h1>
+        <form id="paymentForm">
+            <div class="form-group">
+                <label for="username">Username :</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount to Pay:</label>
+                <input type="number" id="amount" name="amount" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentType">Payment Type:</label>
+                <select id="paymentType" name="paymentType" required>
+                    <option value=0>1 Month</option>
+                    <option value=1>3 Months</option>
+                    <option value=2>6 Months </option>
+                    <option value=3>Annual </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value=0>Cash Payment</option>
+                    <option value=1>Online Transaction</option>
+                </select>
+            </div>
+
+            <div id="onlinePaymentFields" class="hidden">
+                <div class="form-group">
+                    <label for="receipt">Upload Receipt:</label>
+                    <input type="file" id="receipt" name="receipt" accept=".jpg,.jpeg,.png,.pdf">
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Submit Payment</button>
+            <p id="formMessage"></p>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    document.getElementById("paymentForm").addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const message = document.getElementById("formMessage");
+        const username = document.getElementById('username').value;
+        // const memberId = member.memberId;
+        const amount = document.getElementById('amount').value;
+        const paymentMethod = parseInt(document.getElementById('paymentMethod').value);
+        const paymentType = parseInt(document.getElementById('paymentType').value);
+        const today = new Date(); // Get today's date
+        const nextpaymentdate = new Date();
+
+        if (paymentType == 0) {
+            nextpaymentdate.setMonth(today.getMonth() + 1);
+        }
+        else {
+            nextpaymentdate.setFullYear(today.getFullYear() + 1);
+        }
+
+        let mebpayment = [];
+        await fetch(payments_url)
+            .then(response => response.json())
+            .then(array => {
+                mebpayment.push(...array);
+            })
+
+        const payarr = mebpayment.find(data => data.paymentStatus == 0);
+
+        if (payarr) {
+            payarr.status = 1;
+            payarr.nextPaymentDate = today.toDateString();
+            console.log(payarr);
+
+            put_api(payments_url, payarr.paymentId, payarr);
+
+            let member = []
+            await fetch(`${members_url}/${username}`)
+                .then(response => response.json())
+                .then(array => {
+                    member.push(...array);
+                })
+
+            const payment = {
+                memberId: member.memberId,
+                amount: amount,
+                paymentMethod: paymentMethod,
+                paymentType: paymentType,
+            };
+            console.log(payment);
+
+            post_api(payments_url, payment);
+
+            message.textContent = "Payment is successful";
+        }
+        else {
+            message.textContent = "invalid request";
+        }
+        document.getElementById("paymentForm").reset();
+    });
+</script>

@@ -1,0 +1,415 @@
+<style>
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url("/static/images/bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: auto;
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 8px;
+        padding: 50px;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+    }
+
+    h1,
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: rgb(14, 13, 13);
+    }
+
+    h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: left;
+        color: rgb(11, 12, 12);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .container label,
+    .ckbox p {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .wid {
+        width: 100%;
+    }
+
+    .ckbox label {
+        display: block;
+        width: 100%;
+        font-weight: 500;
+    }
+
+    label {
+        font-size: 20px;
+        color: rgb(20, 20, 19);
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #0f0e0e;
+        border-radius: 4px;
+    }
+
+    .ckbox input {
+        width: 10%;
+    }
+
+    button {
+
+        background-color: #ff6600;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #f9ac54;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    p {
+        color: #0e0d0d;
+        font-weight: 800;
+        font-size: x-large;
+    }
+
+    /* Responsive design */
+    @media only screen and (max-width: 600px) {
+        .container {
+            width: 90%;
+            padding: 20px;
+        }
+    }
+
+    #formMessage {
+        text-align: center;
+        color: rgb(164, 24, 24);
+        font-size: larger;
+        font-weight: 800;
+    }
+</style>
+
+<section>
+    <div id="userRegistration" class="container">
+        <h1>User Registration</h1>
+        <form id="userForm">
+            <div class="form-group">
+                <label for="fullname">Full name:</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="nicnumber">NIC number:</label>
+                <input type="text" id="nicnumber" name="nicnumber" placeholder="Enter your NIC number" required>
+            </div>
+            <div class="form-group">
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" name="contactnumber" placeholder="Enter your contact number" required>
+            </div>
+            <div class="form-group">
+                <label for="userRole">Role:</label>
+                <select id="userRole" name="userRole" required>
+                    <option value="member">Member</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="createUsername">Username:</label>
+                <input type="text" id="createUsername" name="createUsername" placeholder="Enter your Username" required>
+            </div>
+            <div class="form-group">
+                <label for="createPassword">Password:</label>
+                <input type="password" id="createPassword" name="createPassword" placeholder="Enter a valid Password"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="fullname">Image:</label>
+                <input type="file" id="image" name="image" placeholder="Enter your image" required>
+            </div>
+            <button type="button" id="userform_btn">Next</button>
+        </form>
+    </div>
+
+    <div id="trainingProgramPage" class="container hidden">
+        <h1>Select Training Program</h1>
+        <form id="trainingForm">
+            <div class="form-group wid ckbox">
+                <p style="color:#0e0d0d;">Cardio:</p>
+                <label><input type="checkbox" name="cardio" value="Running" data-amount="300" /> Running -
+                    Rs300/Month</label>
+                <label><input type="checkbox" name="cardio" value="Cycling" data-amount="300" /> Cycling -
+                    Rs300/Month</label>
+                <label><input type="checkbox" name="cardio" value="Aerobic" data-amount="400" /> Aerobic -
+                    Rs400/Month</label>
+            </div>
+            <div class="form-group wid ckbox">
+                <p style="color: #1b1a1a;">Weight Training:</p>
+                <label><input type="checkbox" name="weighttraining" value="Lifting" data-amount="500" /> Lifting -
+                    Rs500/Month</label>
+                <label><input type="checkbox" name="weighttraining" value="Body Building" data-amount="500" /> Body
+                    Building - Rs500/Month</label>
+                <label><input type="checkbox" name="weighttraining" value="Strength Training" data-amount="500" />
+                    Strength Training - Rs500/Month</label>
+            </div>
+
+            <div class="form-group">
+                <label for="subscriptionDuration">Choose Esciting Packages Here:</label>
+                <select id="subscriptionDuration" name="subscriptionDuration">
+                    <option value="monthly">1 Month</option>
+                    <option value="threeMonth">3 Months</option>
+                    <option value="sixMonth">6 Months </option>
+                    <option value="annualy">Annual </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label> Amount: Rs<span id="totalAmount">0</span></label>
+            </div>
+            <div class="form-group">
+                <label>Discounted Amount: Rs<span id="discountedAmount">0</span></label>
+            </div>
+            <button type="button" id="trainingform_btn">Next</button>
+        </form>
+    </div>
+
+    <div id="paymentPage" class="container hidden">
+        <h2>Payment</h2>
+        <form id="paymentForm">
+
+            <div class="form-group">
+                <label for="paymentType">Choose Your Package:</label>
+                <select id="paymentType" name="paymentType" required>
+                    <option value="monthly">Monthly</option>
+                    <option value="3">3 Months</option>
+                    <option value="6">6 Months </option>
+                    <option value="annualy">Annual</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" required>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="cash">Cash</option>
+                    <option value="online">Online Transaction</option>
+                </select>
+            </div>
+
+            <button type="button" id="paymentform_btn">Submit</button>
+        </form>
+    </div>
+
+    <p id="creationMessage" class="message"></p>
+</section>
+
+<script>
+
+    function updateTotalAmount() {
+        const checkboxes = document.querySelectorAll('#trainingForm input[type="checkbox"]');
+        let totalAmount = 0;
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                totalAmount += parseInt(checkbox.getAttribute('data-amount'));
+            }
+        });
+
+        const subscriptionDuration = document.getElementById('subscriptionDuration').value;
+        let discount = 0;
+
+        if (subscriptionDuration === "threeMonth") {
+            discount = 0.15;
+        } else if (subscriptionDuration === "sixMonth") {
+            discount = 0.20;
+        } else if (subscriptionDuration === "annualy") {
+            discount = 0.25;
+        }
+        let discountedAmountPerMonth = totalAmount * (1 - discount);
+        let totalDiscountedAmount = discountedAmountPerMonth * subscriptionDuration;
+
+        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+        document.getElementById('discountedAmount').textContent = totalDiscountedAmount.toFixed(2);
+        document.getElementById('amount').value = totalDiscountedAmount.toFixed(2);
+    }
+
+    document.querySelectorAll('#trainingForm input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', updateTotalAmount);
+    });
+
+    document.getElementById('subscriptionDuration').addEventListener('change', updateTotalAmount);
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await fetch(members_url)
+            .then(response => response.json())
+            .then(array => {
+                members.push(...array);
+                console.log(members)
+            })
+
+        function encryptPassword(password) {
+            return btoa(password);
+        }
+
+        let memberId = 0;
+        // const trainingid = 0;
+        let member = {};
+        let selectedTraining = {};
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        document.getElementById("userform_btn").addEventListener("click", async () => {
+            const fullname = document.getElementById('fullname').value.trim();
+            const nicnumber = document.getElementById('nicnumber').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+            const userRole = document.getElementById('userRole').value.trim();
+            const username = document.getElementById('createUsername').value.trim();
+            const password = encryptPassword(document.getElementById('createPassword').value.trim());
+            const image = document.getElementById('image').files[0];  // Get the file input
+
+            if (!fullname || !nicnumber || !contact || !userRole || !username || !password || !image) {
+                alert("Please fill in all fields, including an image.");
+                return;
+            }
+            let member = [];
+            
+            // member = members.find(x => x.username === username);
+
+            await fetch(members_url)
+            .then(response => response.json())
+            .then(array => {
+                member.push(...array);
+                console.log(member)
+            })
+
+            // if (member) {
+            //     alert("Please enter a unique username");
+            //     return;
+            // }
+
+            let formData = new FormData();
+            formData.append('FullName', fullname);
+            formData.append('NicNumber', nicnumber);
+            formData.append('PhoneNumber', contact);
+            formData.append('UserName', username);
+            formData.append('Password', password);
+            formData.append('Userole', userRole);
+            formData.append('Image', image);
+            try {
+                const response = await fetch(`http://localhost:5143/api/Member`, {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert("user created successfully")
+                    if (userRole == 'member') {
+                        memberId = data.memberId;
+                        console.log(memberId);
+                        console.log(data);
+                        document.getElementById('userRegistration').classList.add('hidden');
+                        document.getElementById('trainingProgramPage').classList.remove('hidden');
+                    }
+                    else {
+                        document.getElementById("userForm").reset();
+                        // location.reload();
+                    }
+                }
+                else if (response) {
+                    console.log(data);
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+
+
+        document.getElementById("trainingform_btn").addEventListener('click', () => {
+            const Cardio = Array.from(document.querySelectorAll('input[name="cardio"]:checked')).map(input => input.value);
+            const Weighttraining = Array.from(document.querySelectorAll('input[name="weighttraining"]:checked')).map(input => input.value);
+
+            selectedTraining = {
+                memberId: memberId,
+                cardio: Cardio,
+                weighttraining: Weighttraining
+            };
+
+            document.getElementById('trainingProgramPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.remove('hidden');
+        });
+
+        document.getElementById("paymentform_btn").addEventListener('click', async () => {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const amount = document.getElementById('amount').value.trim();
+            const paymentType = document.getElementById('paymentType').value;
+
+            if (!paymentMethod || !amount || !paymentType) {
+                alert("Please complete payment details");
+                return;
+            }
+
+            const today = new Date();
+            const nextpaymentdate = new Date();
+
+            if (paymentType === 'monthly') {
+                nextpaymentdate.setMonth(today.getMonth() + 1);
+            } else {
+                nextpaymentdate.setFullYear(today.getFullYear() + 1);
+            }
+
+            const payment = {
+                MemberId: memberId,
+                amount: amount,
+                paymentMethod: paymentMethod,
+                paymentType: paymentType,
+                paymentDate: today.toDateString(),
+                nextPaymentDate: nextpaymentdate.toDateString(),
+                status: "pending"
+            };
+
+            console.log(member);
+            console.log(selectedTraining);
+            console.log(payment);
+
+            post_api(trainingPrograms_url, selectedTraining);
+            post_api(payments_url, payment);
+
+            alert("Registration successful!");
+            // location.reload();
+        });
+    });
+
+</script>

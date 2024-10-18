@@ -1,0 +1,144 @@
+<style>
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    td input:disabled {
+        background-color: transparent;
+        border: none;
+    }
+
+    button {
+        border-radius: 5px;
+        color: white;
+        padding: 8px 16px;
+        margin: 0px 8px;
+        cursor: pointer;
+        border: none;
+    }
+
+    td button.edit {
+        background-color: #4CAF50;
+    }
+
+    td button.edit:hover {
+        background-color: #45a049;
+    }
+
+    td button.delete {
+        background-color: #f44336;
+    }
+
+    td button.delete:hover {
+        background-color: #e31e10;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .membid {
+        text-align: center;
+        padding: 10px;
+    }
+
+    th {
+        padding: 10px;
+        background-color: #f2f2f2;
+        font-size: larger;
+    }
+    .btn_td{
+    display: flex;
+    padding: 10px;
+}
+</style>
+
+<section>
+    <div class="table-container">
+        <table id="datatable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>NIC-Number</th>
+                    <th>UserName</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+
+    async function genetable() {
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = '';
+
+        await fetch(members_url)
+            .then(response => response.json())
+            .then(array => {
+                members.push(...array);
+            })
+console.log(members);
+        members.forEach((member, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td class="membid">${member.memberId}</td>
+            <td><input type="text" value="${member.fullName}" disabled /></td>
+            <td><input type="text" value="${member.phoneNumber}" disabled /></td>
+            <td><input type="text" value="${member.nicNumber}" disabled /></td>
+            <td><input type="text" value="${member.userName}" disabled /></td>
+            <td><input type="image" value="../Uploads${member.memberimg}" disabled /></td>
+            <td class="btn_td">
+                <button class="edit" onclick="editRow('${index}', this)">Edit</button>
+                <button class="delete" onclick="deleteRow('${member.memberId}')">Delete</button>
+            </td>`;
+            tbody.appendChild(row);
+        });
+    }
+
+    genetable();
+
+    function editRow(index, button) {
+        const row = button.parentElement.parentElement;
+        const inputs = row.querySelectorAll('input');
+
+        if (button.textContent === 'Edit') {
+            inputs.forEach(input => input.disabled = false);
+            button.textContent = 'Save';
+            button.style.backgroundColor = '#4CAF50'
+        }
+        else {
+            inputs.forEach(input => input.disabled = true);
+            button.textContent = 'Edit';
+            button.style.backgroundColor = '#008CBA';
+
+            members[index].fullname = inputs[0].value;
+            members[index].phonenumber = inputs[1].value;
+            members[index].nicnumber = inputs[2].value;
+            members[index].username = inputs[3].value;
+
+            put_api(members_url, members[index].id, members[index]);
+        }
+    }
+
+    function deleteRow(id) {
+        console.log(id);
+        delete_api(members_url, id);
+        // location.reload();
+    }
+
+</script>

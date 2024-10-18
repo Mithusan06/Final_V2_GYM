@@ -1,0 +1,112 @@
+<style>
+    header {
+        margin: 30px;
+        color: antiquewhite;
+    }
+
+    .container {
+        margin: 50px auto;
+    }
+</style>
+
+<section>
+    <header>
+        <h1 id="logged"></h1>
+    </header>
+
+    <div class="container">
+        <h2 class="heading">Edit User Profile</h2>
+        <form id="profile-form">
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="phonenumber">Phone Number:</label>
+                <input type="text" id="phonenumber" name="phonenumber" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="nicnumber">NIC Number:</label>
+                <input type="text" id="nicnumber" name="nicnumber" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" readonly>
+            </div>
+
+            <button type="button" class="btn" id="edit-btn">Edit</button>
+            <button type="button" class="btn" id="save-btn">Save</button>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    document.getElementById('logged').innerHTML = `Welcome, ${loggedinuser.fullname}`.toUpperCase();
+    let userData = [];
+
+    let nicnumber = document.getElementById('nicnumber');
+    let phonenumber = document.getElementById('phonenumber');
+
+    // Load user profile from members and populate the form
+    async function loadUserProfile() {
+        await fetch(members_url)
+            .then(response => response.json())
+            .then(array => {
+                members.push(...array);
+                console.log(members)
+            })
+
+        userData = members.find(x=>x.memberId==loggedinuser.memberId)
+        console.log(userData);
+
+        if (userData) {
+            document.getElementById('fullname').value = userData.fullname;
+            phonenumber.value = userData.phonenumber;
+            nicnumber.value = userData.nicnumber;
+            document.getElementById('username').value = userData.username;
+            document.getElementById('edit-btn').style.display = 'block';
+        }
+        else {
+            alert('User not found');
+        }
+        document.getElementById('save-btn').style.display = 'none';
+    }
+
+    // Handle click on edit button
+    document.getElementById('edit-btn').addEventListener('click', function () {
+        document.getElementById('phonenumber').removeAttribute('readonly');
+        document.getElementById('nicnumber').removeAttribute('readonly');
+        document.getElementById('edit-btn').style.display = 'none';
+        document.getElementById('save-btn').style.display = 'block';
+    });
+
+    // Handle save button click
+    document.getElementById('save-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Compare the initial data with the current form data to check if there are any changes
+        if (phonenumber.value == userData.phonenumber || nicnumber.value == userData.nicnumber) {
+            alert("no changes have been made");
+        }
+        else {
+            const arr = {
+                fullname: userData.fullname,
+                memberId: userData.id,
+                nicnumber: nicnumber.value,
+                phonenumber: phonenumber.value,
+                username: userData.username,
+            }
+            console.log(arr);
+            post_api(pendingEdits_url, arr);//to send request to change the details
+            alert("Your request has been sent to admin");
+        }
+        loadUserProfile()
+    });
+
+    // Load profile data on page load
+    loadUserProfile();
+</script>

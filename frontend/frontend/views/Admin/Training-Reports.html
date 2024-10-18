@@ -1,0 +1,71 @@
+<style>
+    section {
+          display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    table {
+        width: 100%;
+        }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 15px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color: black;
+    }
+
+   
+</style>
+
+<section>
+    <div class="table-container">
+        <table id="data-table">
+            <thead>
+                <tr>
+
+                    <th>Member ID</th>
+                    <th>Cardio</th>
+                    <th>Weight-Training</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    const tbody = document.getElementById('tablebody');
+
+    async function generateTable() {
+        try {
+            const response = await fetch(trainingPrograms_url);
+            const Programs = await response.json();
+
+            tbody.innerHTML = '';
+
+            Programs.forEach(Program => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${Program.memberId}</td>
+                <td>${Program.cardio.join(', ')}</td>
+                <td>${Program.weighttraining.join(', ')}</td>`;
+                tbody.appendChild(row);
+            });
+        }
+        catch (error) {
+            console.error('Error fetching training programs:', error);
+        }
+    }
+
+    generateTable();
+    
+</script>

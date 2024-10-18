@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "X:\\Milestone-2\\gym\\Final_Project18.10.24\\Gym Fees\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{11B0BAEA-2968-4EE9-A0E3-2815A8F7F3A3}|Gym Fees\\Gym Fees.csproj|x:\\milestone-2\\gym\\final_project18.10.24\\gym fees\\gym fees\\entity\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11B0BAEA-2968-4EE9-A0E3-2815A8F7F3A3}|Gym Fees\\Gym Fees.csproj|solutionrelative:gym fees\\entity\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11B0BAEA-2968-4EE9-A0E3-2815A8F7F3A3}|Gym Fees\\Gym Fees.csproj|x:\\milestone-2\\gym\\final_project18.10.24\\gym fees\\gym fees\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11B0BAEA-2968-4EE9-A0E3-2815A8F7F3A3}|Gym Fees\\Gym Fees.csproj|solutionrelative:gym fees\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "X:\\Milestone-2\\gym\\Final_Project18.10.24\\Gym Fees\\Gym Fees\\Entity\\Payment.cs",
+              "RelativeDocumentMoniker": "Gym Fees\\Entity\\Payment.cs",
+              "ToolTip": "X:\\Milestone-2\\gym\\Final_Project18.10.24\\Gym Fees\\Gym Fees\\Entity\\Payment.cs",
+              "RelativeToolTip": "Gym Fees\\Entity\\Payment.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAYwAoAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T05:29:44.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PaymentController.cs",
+              "DocumentMoniker": "X:\\Milestone-2\\gym\\Final_Project18.10.24\\Gym Fees\\Gym Fees\\Controllers\\PaymentController.cs",
+              "RelativeDocumentMoniker": "Gym Fees\\Controllers\\PaymentController.cs",
+              "ToolTip": "X:\\Milestone-2\\gym\\Final_Project18.10.24\\Gym Fees\\Gym Fees\\Controllers\\PaymentController.cs",
+              "RelativeToolTip": "Gym Fees\\Controllers\\PaymentController.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAgwB4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T05:24:08.722Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

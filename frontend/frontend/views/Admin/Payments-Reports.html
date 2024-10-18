@@ -1,0 +1,73 @@
+<style>
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 15px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        }
+</style>
+
+<section>
+    <div class="table-container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Member ID</th>
+                    <th>Package Type</th>
+                    <th>Amount</th>
+                    <th>Payment Type</th>
+                    <th>PaidDate</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    const tbody = document.getElementById('tablebody');
+
+    async function generateTable() {
+        try {
+            await fetch(payments_url)
+                .then(response => response.json())
+                .then(array => {
+                    payments.push(...array);
+                })
+
+            tbody.innerHTML = '';
+
+            payments.forEach(payment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${payment.memberId}</td>
+                <td>${payment.paymentType}</td>
+                <td>${payment.amount}</td>
+                <td>${payment.paymentMethod}</td>
+                <td>${payment.paymentDate}</td>`;
+                tbody.appendChild(row);
+            });
+        }
+        catch (error) {
+            console.error('Error fetching payments:', error);
+        }
+    }
+
+    generateTable();
+</script>
